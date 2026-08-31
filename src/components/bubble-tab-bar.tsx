@@ -8,16 +8,16 @@ const TAB_ITEM_SIZE = 48;
 const BAR_BOTTOM_OFFSET = 24;
 const BAR_VERTICAL_PADDING = 10;
 
-/** Chiều cao tab bar (icon + padding) cộng offset đáy — dùng làm padding-bottom
- * cho nội dung cuộn trong các tab dùng `BubbleTabBar`, vì bar nổi đè
- * (`position: absolute`) thay vì chiếm chỗ trong layout. */
+/** Tab bar height (icon + padding) plus bottom offset — use as padding-bottom
+ * for scrollable content on screens using `BubbleTabBar`, since the bar floats
+ * on top (`position: absolute`) instead of taking up layout space. */
 export const BUBBLE_TAB_BAR_CLEARANCE =
   TAB_ITEM_SIZE + BAR_VERTICAL_PADDING * 2 + BAR_BOTTOM_OFFSET + 16;
 
 /**
- * Tab bar icon-only kiểu "bong bóng" — mỗi tab có 1 vòng tròn indicator riêng
- * animate scale/opacity khi active, thay vì 1 pill nền trượt như `FloatingTabBar`.
- * Dựa theo D:\GitHub\custom-bottom-nav-bar-02.
+ * Icon-only "bubble" tab bar — each tab has its own circular indicator that
+ * animates scale/opacity when active, instead of a single sliding pill
+ * background like `FloatingTabBar`. Based on D:\GitHub\custom-bottom-nav-bar-02.
  */
 export function BubbleTabBar({
   state,

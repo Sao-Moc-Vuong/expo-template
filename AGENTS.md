@@ -4,7 +4,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 
 # heroui-native Input
 
-Nếu `Input` cần dùng `keyboardType` (hoặc các prop bàn phím tương tự), bọc trong `InputGroup` với `className="rounded-field shadow-field"` thay vì dùng `Input` trần.
+If `Input` needs `keyboardType` (or similar keyboard-related props), wrap it in `InputGroup` with `className="rounded-field shadow-field"` instead of using a bare `Input`.
 
 # CLAUDE.md
 

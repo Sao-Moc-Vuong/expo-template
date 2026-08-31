@@ -6,9 +6,10 @@ import { Pressable, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 
 /**
- * Empty state dùng chung cho mọi danh sách trống. `fill` (mặc định true) thêm
- * `flex-1 justify-center` để căn giữa theo chiều cao còn lại — chỉ tắt khi dùng
- * trong context không có chiều cao xác định (vd bên trong Dialog.Content).
+ * Shared empty state for any empty list. `fill` (defaults to true) adds
+ * `flex-1 justify-center` to center it in the remaining space — turn it off
+ * only when used in a context without a defined height (e.g. inside
+ * `Dialog.Content`).
  */
 export function EmptyState({
   icon,
@@ -19,7 +20,7 @@ export function EmptyState({
   fill = true,
 }: {
   icon: keyof typeof Ionicons.glyphMap;
-  /** Mặc định `muted` — đổi qua `success` cho trạng thái trống mang nghĩa tích cực. */
+  /** Defaults to `muted` — switch to `success` for a positively-framed empty state. */
   iconColor?: ThemeColor;
   message: string;
   actionLabel?: string;

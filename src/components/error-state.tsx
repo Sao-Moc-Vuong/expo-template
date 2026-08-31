@@ -7,8 +7,9 @@ import { ThemedText } from "@/components/themed-text";
 import { useTranslation } from "@/hooks/use-translation";
 
 /**
- * Error state dùng chung cho lỗi tải dữ liệu (query `isError`). `fill` (mặc
- * định true) căn giữa theo chiều cao còn lại, giống `EmptyState`.
+ * Shared error state for data-loading failures (query `isError`). `fill`
+ * (defaults to true) centers it vertically in the remaining space, same as
+ * `EmptyState`.
  */
 export function ErrorState({
   message,
