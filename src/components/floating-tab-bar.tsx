@@ -6,7 +6,7 @@ import Animated, { FadeIn, FadeOut, LinearTransition } from "react-native-reanim
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export function CustomTabBar({
+export function FloatingTabBar({
   state,
   descriptors,
   navigation,

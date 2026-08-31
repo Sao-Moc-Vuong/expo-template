@@ -3,7 +3,7 @@ import { Tabs } from "expo-router";
 import type { ComponentProps, JSX } from "react";
 import type { ColorValue } from "react-native";
 
-import { CustomTabBar } from "@/components/custom-tab-bar";
+import { FloatingTabBar } from "@/components/floating-tab-bar";
 import { useTranslation } from "@/hooks/use-translation";
 
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
@@ -24,7 +24,7 @@ export default function TabsLayout(): JSX.Element {
   const { t } = useTranslation("tabs");
 
   return (
-    <Tabs tabBar={(props) => <CustomTabBar {...props} />} screenOptions={{ headerShown: false }}>
+    <Tabs tabBar={(props) => <FloatingTabBar {...props} />} screenOptions={{ headerShown: false }}>
       <Tabs.Screen
         name="index"
         options={{ title: t("home"), tabBarIcon: tabIcon("home", "home-outline") }}
