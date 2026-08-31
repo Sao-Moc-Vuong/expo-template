@@ -12,7 +12,7 @@ export default function EditProfileScreen(): JSX.Element {
   const { t } = useTranslation("settings");
 
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={["top", "left", "right"]}>
+    <SafeAreaView className="flex-1 bg-background" style={{ flex: 1 }} edges={["top", "left", "right"]}>
       <ScreenHeader title={t("editProfile.title")} />
       <ScrollView contentContainerClassName="px-6 pb-8 pt-2">
         <EditProfileForm onSaved={() => router.back()} />

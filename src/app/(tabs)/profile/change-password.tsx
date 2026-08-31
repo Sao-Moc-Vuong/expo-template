@@ -12,7 +12,7 @@ export default function ChangePasswordScreen(): JSX.Element {
   const { t } = useTranslation("settings");
 
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={["top", "left", "right"]}>
+    <SafeAreaView className="flex-1 bg-background" style={{ flex: 1 }} edges={["top", "left", "right"]}>
       <ScreenHeader title={t("changePassword.title")} />
       <ScrollView contentContainerClassName="px-6 pb-8 pt-2">
         <ChangePasswordForm onSaved={() => router.back()} />

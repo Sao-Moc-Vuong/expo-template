@@ -15,7 +15,7 @@ export default function ProfileTab(): JSX.Element {
   const foreground = useThemeColor("foreground");
 
   return (
-    <SafeAreaView className="flex-1 bg-background" edges={["top", "left", "right"]}>
+    <SafeAreaView className="flex-1 bg-background" style={{ flex: 1 }} edges={["top", "left", "right"]}>
       <ScreenHeader title={t("title")} showBackButton={false}>
         <Pressable onPress={() => router.push("/profile/settings")} hitSlop={8} className="p-2">
           <Ionicons name="settings-outline" size={22} color={foreground} />

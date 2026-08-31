@@ -1,4 +1,3 @@
-import { useRouter } from "expo-router";
 import { ListGroup, Separator, Tabs } from "heroui-native";
 import type { JSX } from "react";
 import { View } from "react-native";
@@ -10,7 +9,6 @@ import { ListRow } from "@/components/list-row";
 import { type ThemePreference, useUiStore } from "@/stores/ui.store";
 
 export function SettingsList(): JSX.Element {
-  const router = useRouter();
   const { t } = useTranslation("settings");
   const themePreference = useUiStore((state) => state.themePreference);
   const language = useUiStore((state) => state.language);
@@ -18,23 +16,6 @@ export function SettingsList(): JSX.Element {
 
   return (
     <View className="gap-6 px-6 pb-8 pt-2">
-      <View className="gap-2">
-        <ListRow.GroupLabel>{t("groupAccount")}</ListRow.GroupLabel>
-        <ListGroup>
-          <ListRow.Link
-            icon="person-outline"
-            title={t("editProfile.settingsRowTitle")}
-            onPress={() => router.push("/profile/edit-profile")}
-          />
-          <Separator className="mx-4" />
-          <ListRow.Link
-            icon="lock-closed-outline"
-            title={t("changePassword.settingsRowTitle")}
-            onPress={() => router.push("/profile/change-password")}
-          />
-        </ListGroup>
-      </View>
-
       <View className="gap-2">
         <ListRow.GroupLabel>{t("groupGeneral")}</ListRow.GroupLabel>
         <ListGroup>
