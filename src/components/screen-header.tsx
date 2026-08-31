@@ -1,8 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Typography, useThemeColor } from "heroui-native";
+import { useThemeColor } from "heroui-native";
 import type { JSX, ReactNode } from "react";
 import { Pressable, View } from "react-native";
+
+import { ThemedText } from "@/components/themed-text";
 
 export function ScreenHeader({
   title,
@@ -30,17 +32,18 @@ export function ScreenHeader({
         </Pressable>
       )}
       <View className="flex-1">
-        <Typography.Heading
-          type={size === "2xl" ? "h3" : "h2"}
+        <ThemedText
+          type="title"
+          className={size === "2xl" ? "text-2xl" : "text-3xl"}
           numberOfLines={1}
           adjustsFontSizeToFit
         >
           {title}
-        </Typography.Heading>
+        </ThemedText>
         {!!description && (
-          <Typography.Paragraph type="body-sm" color="muted" numberOfLines={1}>
+          <ThemedText type="small" themeColor="muted" numberOfLines={1}>
             {description}
-          </Typography.Paragraph>
+          </ThemedText>
         )}
       </View>
       {children}

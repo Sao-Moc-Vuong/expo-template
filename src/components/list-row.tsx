@@ -1,12 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ListGroup, Typography, useThemeColor } from "heroui-native";
+import { ListGroup, useThemeColor } from "heroui-native";
 import type { JSX, ReactNode } from "react";
+
+import { ThemedText } from "@/components/themed-text";
 
 function GroupLabel({ children }: { children: ReactNode }): JSX.Element {
   return (
-    <Typography.Paragraph type="body-sm" color="muted" className="ml-2">
+    <ThemedText type="small" themeColor="muted" className="ml-2 uppercase">
       {children}
-    </Typography.Paragraph>
+    </ThemedText>
   );
 }
 

@@ -9,7 +9,13 @@ import { useTranslation } from "@/hooks/use-translation";
 type IoniconName = ComponentProps<typeof Ionicons>["name"];
 
 function tabIcon(activeName: IoniconName, inactiveName: IoniconName) {
-  return function TabIcon({ color, focused }: { color: ColorValue; focused: boolean }): JSX.Element {
+  return function TabIcon({
+    color,
+    focused,
+  }: {
+    color: ColorValue;
+    focused: boolean;
+  }): JSX.Element {
     return <Ionicons name={focused ? activeName : inactiveName} size={22} color={color} />;
   };
 }

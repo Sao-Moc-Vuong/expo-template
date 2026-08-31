@@ -124,7 +124,10 @@ export function ChangePasswordForm({ onSaved }: { onSaved: () => void }): JSX.El
                 autoCapitalize="none"
               />
               <InputGroup.Suffix>
-                <Pressable onPress={() => setIsNewPasswordVisible((visible) => !visible)} hitSlop={12}>
+                <Pressable
+                  onPress={() => setIsNewPasswordVisible((visible) => !visible)}
+                  hitSlop={12}
+                >
                   <Ionicons
                     name={isNewPasswordVisible ? "eye-off-outline" : "eye-outline"}
                     size={16}
@@ -176,9 +179,7 @@ export function ChangePasswordForm({ onSaved }: { onSaved: () => void }): JSX.El
           <Ionicons name="save-outline" size={16} color={accentForeground} />
         )}
         <Button.Label>
-          {changePasswordMutation.isPending
-            ? t("changePassword.saving")
-            : t("changePassword.save")}
+          {changePasswordMutation.isPending ? t("changePassword.saving") : t("changePassword.save")}
         </Button.Label>
       </Button>
     </View>

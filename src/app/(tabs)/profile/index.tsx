@@ -6,6 +6,7 @@ import { Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ScreenHeader } from "@/components/screen-header";
+import { ThemedView } from "@/components/themed-view";
 import { ProfileScreen } from "@/features/profile/components/profile-screen";
 import { useTranslation } from "@/hooks/use-translation";
 
@@ -15,13 +16,15 @@ export default function ProfileTab(): JSX.Element {
   const foreground = useThemeColor("foreground");
 
   return (
-    <SafeAreaView className="flex-1 bg-background" style={{ flex: 1 }} edges={["top", "left", "right"]}>
-      <ScreenHeader title={t("title")} showBackButton={false}>
-        <Pressable onPress={() => router.push("/profile/settings")} hitSlop={8} className="p-2">
-          <Ionicons name="settings-outline" size={22} color={foreground} />
-        </Pressable>
-      </ScreenHeader>
-      <ProfileScreen />
-    </SafeAreaView>
+    <ThemedView className="flex-1">
+      <SafeAreaView style={{ flex: 1 }} edges={["top", "left", "right"]}>
+        <ScreenHeader title={t("title")} showBackButton={false}>
+          <Pressable onPress={() => router.push("/profile/settings")} hitSlop={8} className="p-2">
+            <Ionicons name="settings-outline" size={22} color={foreground} />
+          </Pressable>
+        </ScreenHeader>
+        <ProfileScreen />
+      </SafeAreaView>
+    </ThemedView>
   );
 }

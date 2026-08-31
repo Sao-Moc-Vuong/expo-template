@@ -6,7 +6,12 @@ import Animated, { FadeIn, FadeOut, LinearTransition } from "react-native-reanim
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export function CustomTabBar({ state, descriptors, navigation, insets }: BottomTabBarProps): JSX.Element {
+export function CustomTabBar({
+  state,
+  descriptors,
+  navigation,
+  insets,
+}: BottomTabBarProps): JSX.Element {
   const [background, surface, border, accent, accentForeground, muted] = useThemeColor([
     "background",
     "surface",
