@@ -13,16 +13,22 @@ import type { JSX } from "react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useTranslation } from "@/hooks/use-translation";
 import { useZodErrorMap } from "@/hooks/use-zod-error-map";
 
+import { env } from "@/configs/env.config";
 import { useLoginMutation } from "@/features/auth/hooks/use-auth";
 import { LoginInputSchema, type LoginInput } from "@/features/auth/schemas/auth.schema";
 import { ApiError } from "@/lib/api-error";
+import type { Language } from "@/lib/i18n";
+import { seedUsers } from "@/mocks/seed/users.seed";
+import { useUiStore } from "@/stores/ui.store";
+
+const LANGUAGE_LABEL: Record<Language, string> = { vi: "VI", en: "EN" };
 
 export function LoginScreen(): JSX.Element {
   const { t } = useTranslation("auth");
@@ -30,10 +36,18 @@ export function LoginScreen(): JSX.Element {
   const loginMutation = useLoginMutation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [accent, accentForeground, muted] = useThemeColor(["accent", "accent-foreground", "muted"]);
+  const language = useUiStore((state) => state.language);
+  const setLanguage = useUiStore((state) => state.actions.setLanguage);
+  const insets = useSafeAreaInsets();
+
+  const toggleLanguage = () => {
+    setLanguage(language === "vi" ? "en" : "vi");
+  };
 
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<LoginInput>({
     resolver: zodResolver(LoginInputSchema, { error: errorMap }),
@@ -43,6 +57,12 @@ export function LoginScreen(): JSX.Element {
   const onSubmit = handleSubmit((values) => {
     loginMutation.mutate(values);
   });
+
+  const fillDemoCredentials = () => {
+    const demoUser = seedUsers[0];
+    setValue("email", demoUser.email);
+    setValue("password", demoUser.password);
+  };
 
   const submitError =
     loginMutation.error instanceof ApiError
@@ -54,6 +74,18 @@ export function LoginScreen(): JSX.Element {
   return (
     <ThemedView className="flex-1">
       <SafeAreaView style={{ flex: 1 }}>
+        <Pressable
+          onPress={toggleLanguage}
+          hitSlop={12}
+          className="absolute z-10 flex-row items-center gap-1 rounded-full px-3 py-1.5"
+          style={{ backgroundColor: accent, top: insets.top + 12, right: 16 }}
+        >
+          <Ionicons name="globe-outline" size={14} color={accentForeground} />
+          <ThemedText type="smallBold" themeColor="accent-foreground">
+            {LANGUAGE_LABEL[language]}
+          </ThemedText>
+        </Pressable>
+
         <KeyboardAvoidingView
           behavior={Platform.select({ ios: "padding", default: "height" })}
           className="flex-1 justify-center gap-8 px-6"
@@ -144,6 +176,15 @@ export function LoginScreen(): JSX.Element {
                 </TextField>
               )}
             />
+
+            {env.API_MOCK && (
+              <Button variant="ghost" onPress={fillDemoCredentials}>
+                <Ionicons name="flask-outline" size={16} color={accent} />
+                <Button.Label className="text-accent">
+                  {t("login.fillDemoCredentials")}
+                </Button.Label>
+              </Button>
+            )}
 
             <Button onPress={onSubmit} isDisabled={loginMutation.isPending} className="mt-2">
               {!loginMutation.isPending && (
