@@ -31,7 +31,7 @@ export function ScreenHeader({
       )}
       <View className="flex-1">
         <Typography.Heading
-          type={size === "2xl" ? "h2" : "h1"}
+          type={size === "2xl" ? "h3" : "h2"}
           numberOfLines={1}
           adjustsFontSizeToFit
         >

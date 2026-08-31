@@ -25,7 +25,7 @@ export function ProfileScreen(): JSX.Element {
             </Typography.Heading>
           </View>
           <View className="flex-1 gap-1">
-            <Typography.Heading type="h5">{user?.name}</Typography.Heading>
+            <Typography.Heading type="h4">{user?.name}</Typography.Heading>
             <Typography.Paragraph type="body-sm" color="muted">
               {user?.email}
             </Typography.Paragraph>
