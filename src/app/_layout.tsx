@@ -1,8 +1,9 @@
 import type { JSX } from "react";
 import { QueryClientProvider, useQuery } from "@tanstack/react-query";
-import { Slot } from "expo-router";
+import { DarkTheme, DefaultTheme, Slot, ThemeProvider } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { HeroUINativeProvider } from "heroui-native";
+import { useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { authQueryOptions } from "@/features/auth/hooks/auth.query-options";
@@ -26,13 +27,17 @@ function RootNavigator(): JSX.Element | null {
 }
 
 export default function RootLayout(): JSX.Element {
+  const colorScheme = useColorScheme();
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
       <QueryClientProvider client={queryClient}>
-        <HeroUINativeProvider>
-          <RootNavigator />
-          <StatusBar style="auto" />
-        </HeroUINativeProvider>
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <HeroUINativeProvider>
+            <RootNavigator />
+          </HeroUINativeProvider>
+        </ThemeProvider>
       </QueryClientProvider>
     </GestureHandlerRootView>
   );

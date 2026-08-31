@@ -41,10 +41,7 @@ export function SettingsList(): JSX.Element {
         </SettingsRow>
 
         <SettingsRow title={t("language.label")}>
-          <Tabs
-            value={language}
-            onValueChange={(value) => actions.setLanguage(value as Language)}
-          >
+          <Tabs value={language} onValueChange={(value) => actions.setLanguage(value as Language)}>
             <Tabs.List>
               <Tabs.Trigger value="vi">
                 <Tabs.Label>{t("language.vi")}</Tabs.Label>

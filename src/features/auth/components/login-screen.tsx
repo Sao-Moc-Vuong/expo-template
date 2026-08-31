@@ -1,8 +1,20 @@
-import type { JSX } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, Button, FieldError, Input, Label, TextField } from "heroui-native";
+import {
+  Alert,
+  Button,
+  FieldError,
+  InputGroup,
+  Label,
+  TextField,
+  Typography,
+  useThemeColor,
+} from "heroui-native";
+import type { JSX } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useTranslation } from "@/hooks/use-translation";
 import { useZodErrorMap } from "@/hooks/use-zod-error-map";
@@ -15,6 +27,8 @@ export function LoginScreen(): JSX.Element {
   const { t } = useTranslation("auth");
   const errorMap = useZodErrorMap();
   const loginMutation = useLoginMutation();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [accent, accentForeground, muted] = useThemeColor(["accent", "accent-foreground", "muted"]);
 
   const {
     control,
@@ -29,34 +43,65 @@ export function LoginScreen(): JSX.Element {
     loginMutation.mutate(values);
   });
 
+  const submitError =
+    loginMutation.error instanceof ApiError
+      ? loginMutation.error.message
+      : loginMutation.error
+        ? t("login.genericError")
+        : undefined;
+
   return (
-    <SafeAreaView className="flex-1 bg-background">
-      <ScrollView
-        contentContainerClassName="flex-1 justify-center px-6 gap-6"
-        keyboardShouldPersistTaps="handled"
+    <SafeAreaView className="flex-1 bg-background" style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.select({ ios: "padding", default: "height" })}
+        className="flex-1 justify-center gap-8 px-6"
       >
-        <View className="gap-1">
-          <Label className="text-2xl font-semibold">{t("login.title")}</Label>
-          <Label className="text-muted">{t("login.subtitle")}</Label>
+        <View className="items-center gap-4">
+          <View
+            className="h-16 w-16 items-center justify-center rounded-2xl"
+            style={{ backgroundColor: accent }}
+          >
+            <Ionicons name="finger-print" size={32} color={accentForeground} />
+          </View>
+          <View className="items-center gap-2">
+            <Typography.Heading type="h1" className="text-4xl">
+              {t("login.appName")}
+            </Typography.Heading>
+            <Typography.Paragraph color="muted">{t("login.subtitle")}</Typography.Paragraph>
+          </View>
         </View>
 
         <View className="gap-4">
+          {submitError && (
+            <Alert status="danger">
+              <Alert.Indicator />
+              <Alert.Content>
+                <Alert.Title>{submitError}</Alert.Title>
+              </Alert.Content>
+            </Alert>
+          )}
+
           <Controller
             control={control}
             name="email"
             render={({ field: { value, onChange, onBlur } }) => (
-              <TextField isInvalid={!!errors.email}>
+              <TextField isRequired isInvalid={!!errors.email}>
                 <Label>{t("login.email")}</Label>
-                <Input
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  placeholder={t("login.emailPlaceholder")}
-                  autoCapitalize="none"
-                  keyboardType="email-address"
-                  autoComplete="email"
-                />
-                <FieldError>{errors.email?.message}</FieldError>
+                <InputGroup className="rounded-field shadow-field">
+                  <InputGroup.Prefix isDecorative>
+                    <Ionicons name="mail-outline" size={16} color={muted} />
+                  </InputGroup.Prefix>
+                  <InputGroup.Input
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder={t("login.emailPlaceholder")}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    autoComplete="email"
+                  />
+                </InputGroup>
+                {errors.email && <FieldError>{errors.email.message}</FieldError>}
               </TextField>
             )}
           />
@@ -65,36 +110,49 @@ export function LoginScreen(): JSX.Element {
             control={control}
             name="password"
             render={({ field: { value, onChange, onBlur } }) => (
-              <TextField isInvalid={!!errors.password}>
+              <TextField isRequired isInvalid={!!errors.password}>
                 <Label>{t("login.password")}</Label>
-                <Input
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  placeholder={t("login.passwordPlaceholder")}
-                  secureTextEntry
-                  autoCapitalize="none"
-                  autoComplete="password"
-                />
-                <FieldError>{errors.password?.message}</FieldError>
+                <InputGroup className="rounded-field shadow-field">
+                  <InputGroup.Prefix isDecorative>
+                    <Ionicons name="lock-closed-outline" size={16} color={muted} />
+                  </InputGroup.Prefix>
+                  <InputGroup.Input
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder={t("login.passwordPlaceholder")}
+                    secureTextEntry={!isPasswordVisible}
+                    autoCapitalize="none"
+                    autoComplete="password"
+                  />
+                  <InputGroup.Suffix>
+                    <Pressable
+                      onPress={() => setIsPasswordVisible((visible) => !visible)}
+                      hitSlop={12}
+                    >
+                      <Ionicons
+                        name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+                        size={16}
+                        color={muted}
+                      />
+                    </Pressable>
+                  </InputGroup.Suffix>
+                </InputGroup>
+                {errors.password && <FieldError>{errors.password.message}</FieldError>}
               </TextField>
             )}
           />
+
+          <Button onPress={onSubmit} isDisabled={loginMutation.isPending} className="mt-2">
+            {!loginMutation.isPending && (
+              <Ionicons name="log-in-outline" size={18} color={accentForeground} />
+            )}
+            <Button.Label>
+              {loginMutation.isPending ? t("login.submitting") : t("login.submit")}
+            </Button.Label>
+          </Button>
         </View>
-
-        {loginMutation.error instanceof ApiError && (
-          <Alert status="danger">
-            <Alert.Indicator />
-            <Alert.Content>
-              <Alert.Description>{loginMutation.error.message}</Alert.Description>
-            </Alert.Content>
-          </Alert>
-        )}
-
-        <Button onPress={onSubmit} isDisabled={loginMutation.isPending}>
-          <Button.Label>{t("login.submit")}</Button.Label>
-        </Button>
-      </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Button, Typography } from "heroui-native";
 import type { JSX } from "react";
-import { SafeAreaView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import { useTranslation } from "@/hooks/use-translation";
 
@@ -16,28 +16,30 @@ export function ProfileScreen(): JSX.Element {
   const user = sessionQuery.data?.user;
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
-      <View className="flex-1 gap-6 px-6 py-8">
-        <Typography.Heading>{t("title")}</Typography.Heading>
-
-        <View className="gap-2">
-          <Typography.Paragraph className="text-muted">{t("name")}</Typography.Paragraph>
-          <Typography.Paragraph>{user?.name}</Typography.Paragraph>
+    <ScrollView className="flex-1" contentContainerClassName="flex-grow justify-between px-6 py-2 gap-6">
+      <View className="gap-6">
+        <View className="flex-row items-center gap-3">
+          <View className="size-12 items-center justify-center rounded-full bg-accent">
+            <Typography.Heading type="h4" className="text-accent-foreground">
+              {user?.name?.charAt(0).toUpperCase() ?? ""}
+            </Typography.Heading>
+          </View>
+          <View className="flex-1 gap-1">
+            <Typography.Heading type="h5">{user?.name}</Typography.Heading>
+            <Typography.Paragraph type="body-sm" color="muted">
+              {user?.email}
+            </Typography.Paragraph>
+          </View>
         </View>
-
-        <View className="gap-2">
-          <Typography.Paragraph className="text-muted">{t("email")}</Typography.Paragraph>
-          <Typography.Paragraph>{user?.email}</Typography.Paragraph>
-        </View>
-
-        <Button
-          variant="outline"
-          isDisabled={logoutMutation.isPending}
-          onPress={() => logoutMutation.mutate()}
-        >
-          <Button.Label>{t("logout")}</Button.Label>
-        </Button>
       </View>
-    </SafeAreaView>
+
+      <Button
+        variant="outline"
+        isDisabled={logoutMutation.isPending}
+        onPress={() => logoutMutation.mutate()}
+      >
+        <Button.Label>{t("logout")}</Button.Label>
+      </Button>
+    </ScrollView>
   );
 }
