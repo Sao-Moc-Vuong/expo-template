@@ -1,0 +1,14 @@
+{
+  "appName": "Expo Template",
+  "button": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "retry": "Thử lại",
+    "logout": "Đăng xuất"
+  },
+  "loading": "Đang tải...",
+  "error": {
+    "generic": "Đã có lỗi xảy ra, vui lòng thử lại."
+  }
+}

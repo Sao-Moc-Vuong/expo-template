@@ -1,0 +1,17 @@
+{
+  "title": "Settings",
+  "group": {
+    "appearance": "Appearance"
+  },
+  "theme": {
+    "label": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "label": "Language",
+    "vi": "Vietnamese",
+    "en": "English"
+  }
+}

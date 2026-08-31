@@ -1,0 +1,17 @@
+{
+  "title": "Cài đặt",
+  "group": {
+    "appearance": "Giao diện"
+  },
+  "theme": {
+    "label": "Chủ đề",
+    "system": "Hệ thống",
+    "light": "Sáng",
+    "dark": "Tối"
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh"
+  }
+}
