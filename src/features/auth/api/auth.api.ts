@@ -11,4 +11,7 @@ export const authApi = {
 
   updateMe: (payload: Partial<Pick<User, "name" | "email">>): Promise<User> =>
     apiClient.put("/me", payload),
+
+  changePassword: (payload: { currentPassword: string; newPassword: string }): Promise<User> =>
+    apiClient.put("/me/password", payload),
 };

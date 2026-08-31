@@ -16,6 +16,10 @@ export function useZodErrorMap() {
         const format = (issue as $ZodIssue & { code: "invalid_format" }).format;
         return format === "email" ? t("invalidEmail") : t("invalidFormat");
       }
+      case "custom": {
+        const i18nKey = (issue as $ZodIssue & { code: "custom" }).params?.i18nKey;
+        return typeof i18nKey === "string" ? t(i18nKey) : undefined;
+      }
       default:
         return undefined;
     }

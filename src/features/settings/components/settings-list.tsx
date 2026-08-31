@@ -1,46 +1,16 @@
-import { Ionicons } from "@expo/vector-icons";
-import { ListGroup, Separator, Tabs, Typography, useThemeColor } from "heroui-native";
-import type { JSX, ReactNode } from "react";
+import { useRouter } from "expo-router";
+import { ListGroup, Separator, Tabs } from "heroui-native";
+import type { JSX } from "react";
 import { View } from "react-native";
 
 import { useTranslation } from "@/hooks/use-translation";
 import type { Language } from "@/lib/i18n";
 
+import { ListRow } from "@/components/list-row";
 import { type ThemePreference, useUiStore } from "@/stores/ui.store";
 
-function SettingsGroupLabel({ children }: { children: ReactNode }): JSX.Element {
-  return (
-    <Typography.Paragraph type="body-sm" color="muted" className="ml-2 uppercase">
-      {children}
-    </Typography.Paragraph>
-  );
-}
-
-function SettingsRow({
-  icon,
-  title,
-  children,
-}: {
-  icon: keyof typeof Ionicons.glyphMap;
-  title: string;
-  children: ReactNode;
-}): JSX.Element {
-  const foreground = useThemeColor("foreground");
-
-  return (
-    <ListGroup.Item disabled className="items-start py-4">
-      <ListGroup.ItemPrefix className="mt-0.5">
-        <Ionicons name={icon} size={20} color={foreground} />
-      </ListGroup.ItemPrefix>
-      <ListGroup.ItemContent className="gap-3">
-        <ListGroup.ItemTitle>{title}</ListGroup.ItemTitle>
-        {children}
-      </ListGroup.ItemContent>
-    </ListGroup.Item>
-  );
-}
-
 export function SettingsList(): JSX.Element {
+  const router = useRouter();
   const { t } = useTranslation("settings");
   const themePreference = useUiStore((state) => state.themePreference);
   const language = useUiStore((state) => state.language);
@@ -49,9 +19,26 @@ export function SettingsList(): JSX.Element {
   return (
     <View className="gap-6 px-6 pb-8 pt-2">
       <View className="gap-2">
-        <SettingsGroupLabel>{t("groupGeneral")}</SettingsGroupLabel>
+        <ListRow.GroupLabel>{t("groupAccount")}</ListRow.GroupLabel>
         <ListGroup>
-          <SettingsRow icon="color-palette-outline" title={t("theme")}>
+          <ListRow.Link
+            icon="person-outline"
+            title={t("editProfile.settingsRowTitle")}
+            onPress={() => router.push("/profile/edit-profile")}
+          />
+          <Separator className="mx-4" />
+          <ListRow.Link
+            icon="lock-closed-outline"
+            title={t("changePassword.settingsRowTitle")}
+            onPress={() => router.push("/profile/change-password")}
+          />
+        </ListGroup>
+      </View>
+
+      <View className="gap-2">
+        <ListRow.GroupLabel>{t("groupGeneral")}</ListRow.GroupLabel>
+        <ListGroup>
+          <ListRow icon="color-palette-outline" title={t("theme")}>
             <Tabs
               value={themePreference}
               onValueChange={(value) => actions.setThemePreference(value as ThemePreference)}
@@ -69,11 +56,11 @@ export function SettingsList(): JSX.Element {
                 </Tabs.Trigger>
               </Tabs.List>
             </Tabs>
-          </SettingsRow>
+          </ListRow>
 
           <Separator className="mx-4" />
 
-          <SettingsRow icon="language-outline" title={t("language")}>
+          <ListRow icon="language-outline" title={t("language")}>
             <Tabs
               value={language}
               onValueChange={(value) => actions.setLanguage(value as Language)}
@@ -88,7 +75,7 @@ export function SettingsList(): JSX.Element {
                 </Tabs.Trigger>
               </Tabs.List>
             </Tabs>
-          </SettingsRow>
+          </ListRow>
         </ListGroup>
       </View>
     </View>

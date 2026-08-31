@@ -3,5 +3,6 @@
   "invalidEmail": "Email không hợp lệ",
   "minLength": "Phải có ít nhất {{count}} ký tự",
   "maxLength": "Không được vượt quá {{count}} ký tự",
-  "invalidFormat": "Định dạng không hợp lệ"
+  "invalidFormat": "Định dạng không hợp lệ",
+  "passwordMismatch": "Mật khẩu xác nhận không khớp"
 }
