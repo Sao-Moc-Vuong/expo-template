@@ -1,0 +1,38 @@
+{
+  "title": "Settings",
+  "groupAccount": "Account",
+  "groupGeneral": "General",
+  "theme": "Appearance",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "language": "Language",
+  "languageVi": "Tiếng Việt",
+  "languageEn": "English",
+  "editProfile": {
+    "settingsRowTitle": "My profile",
+    "title": "My profile",
+    "nameLabel": "Full name",
+    "namePlaceholder": "Enter full name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "save": "Save changes",
+    "saving": "Saving...",
+    "submitError": "Something went wrong, please try again",
+    "toastSaved": "Profile saved"
+  },
+  "changePassword": {
+    "settingsRowTitle": "Change password",
+    "title": "Change password",
+    "currentPasswordLabel": "Current password",
+    "currentPasswordPlaceholder": "••••••••",
+    "newPasswordLabel": "New password",
+    "newPasswordPlaceholder": "••••••••",
+    "confirmPasswordLabel": "Confirm new password",
+    "confirmPasswordPlaceholder": "••••••••",
+    "save": "Change password",
+    "saving": "Saving...",
+    "submitError": "Something went wrong, please try again",
+    "toastSaved": "Password changed"
+  }
+}

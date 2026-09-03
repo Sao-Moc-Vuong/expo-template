@@ -1,0 +1,38 @@
+{
+  "title": "Cài đặt",
+  "groupAccount": "Tài khoản",
+  "groupGeneral": "Chung",
+  "theme": "Giao diện",
+  "themeSystem": "Hệ thống",
+  "themeLight": "Sáng",
+  "themeDark": "Tối",
+  "language": "Ngôn ngữ",
+  "languageVi": "Tiếng Việt",
+  "languageEn": "English",
+  "editProfile": {
+    "settingsRowTitle": "Hồ sơ của tôi",
+    "title": "Hồ sơ của tôi",
+    "nameLabel": "Họ tên",
+    "namePlaceholder": "Nhập họ tên",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "save": "Lưu thay đổi",
+    "saving": "Đang lưu...",
+    "submitError": "Có lỗi xảy ra, vui lòng thử lại",
+    "toastSaved": "Đã lưu hồ sơ"
+  },
+  "changePassword": {
+    "settingsRowTitle": "Đổi mật khẩu",
+    "title": "Đổi mật khẩu",
+    "currentPasswordLabel": "Mật khẩu hiện tại",
+    "currentPasswordPlaceholder": "••••••••",
+    "newPasswordLabel": "Mật khẩu mới",
+    "newPasswordPlaceholder": "••••••••",
+    "confirmPasswordLabel": "Xác nhận mật khẩu mới",
+    "confirmPasswordPlaceholder": "••••••••",
+    "save": "Đổi mật khẩu",
+    "saving": "Đang lưu...",
+    "submitError": "Có lỗi xảy ra, vui lòng thử lại",
+    "toastSaved": "Đã đổi mật khẩu"
+  }
+}
